@@ -1,0 +1,93 @@
+
+/*劃出鋸齒狀(像是斯指的效果)*/
+.paper{
+    content: " ";
+    display: block;
+    position: absolute;
+    bottom: -16px;
+    left: 0px;
+    width: 100%;
+    height: 20px;
+    background: -webkit-linear-gradient(#ffffff 0%, transparent 0%), -webkit-linear-gradient(135deg, #E9E9E9 33.33%, transparent 33.33%) 0 0%, transparent -webkit-linear-gradient(45deg, #E9E9E933.33%, #FFF 33.33%) 0 0%;
+    background-repeat: repeat-x;
+    background-size: 0px 100%, 6px 7px, 6px 6px;
+}
+
+/*
+用手機瀏覽網頁時，點擊輸入框準備輸入文字時，畫面放大了。
+若是不希望畫面放大該怎麼做呢？使用CSS幫輸入框設定字級
+*/
+input, textarea {font-size: initial;}
+
+
+
+/*
+實際在iPhone上測試時，發現Safari（也包括iOS應用內置瀏覽器使用的UIWebView）竟然完全禁用掉了名著的“慣性滾動”效果，導致滑動時很卡
+*/
+div {
+ height: 100%;
+ overflow-y: auto;
+/*解決方式，添加上以下兩行*/
+-webkit-overflow-scrolling: touch;
+-webkit-transform: translate3d(0,0,0);
+}
+
+
+
+
+
+
+css animation 、translate3d、transform
+這些都瀏覽器都會先處理  (所以)overflow才會無法遮住
+
+background: url(//c1.mifile.cn/f/i/2014/cn/water/overall-intro-bg.jpg) no-repeat 50% 0;
+原來除了使用center 也能用%、px
+
+vertical-align: 10px;
+原來垂直對齊可以直接設定px、%，做出類似上標下標字、或對齊同一行其他物件用(不用top)
+正值往上／負值往下
+
+
+margin: 0 auto 20px;
+上0  左右auto  下20px
+這樣還能置中
+
+content: " ";
+display: table;
+這樣好像就能把float空間撐開，但高度還是0；如果要有高度，再補上clear就可以
+
+:nth-child() 是選順序無法指定tag
+.box span:nth-child(1){
+
+如果不指定tag可以這樣
+.box :nth-child(1){
+
+:nth-child(3n+0)
+可以做運算an+b
+
+CSS可以抓html的值
+<td data-title="門市編號" class="large">01</td>
+content: attr(data-title);
+content: " (" attr(href) ")";   /*而且還可以組合()等靜態文字*/
+content:”” 裡面也可以放unicode字碼，但是要用\取代U+，例如U+FF1A 要寫成content:”\FF1A”
+
+
+漸層 http://www.w3schools.com/css/css3_gradients.asp
+background: -webkit-gradient(linear, left top, left bottom, from(#21b5c3), to(#53d9d0));
+background: -webkit-linear-gradient(top, #21b5c3, #53d9d0);
+background: linear-gradient(to bottom, #21b5c3, #53d9d0);
+
+圓心
+background: -webkit-radial-gradient(30% 56%, closest-corner, #c2f1fc, #307ff5);
+background: radial-gradient(30% 56%, closest-corner, #c2f1fc, #307ff5);
+
+
+
+Scrollbar捲軸樣式
+.lightbox::-webkit-scrollbar{ width:8px;}
+.lightbox::-webkit-scrollbar-track {background-color:#f0f0f0; border-radius:8px;}
+.lightbox::-webkit-scrollbar-thumb {border-radius:8px;background-color:#ddd; }
+
+CSS實現隱藏滾動條同時又可以滾動
+出處：https://blog.niceue.com/front-end-development/hide-scrollbar-but-still-scrollable-using-css.html
+
