@@ -1,5 +1,27 @@
+/*-------flex--------*/
+.parent{
+    display: flex;
+    justify-content: center;/*子元素左右置中*/
+    align-items: center;/*子元素垂直置中*/
+}
+.child{
+    flex:none;/*不縮放(跟傳統DIV一樣)固定尺寸*/
+    flex:auto;/*自動縮放*/
+}
 
-/*劃出鋸齒狀(像是斯指的效果)*/
+
+
+
+
+
+
+
+/*增加權重的方式之一*/
+div > .class{}
+.class.class{/*這樣可增加權重*/}  
+
+
+/*劃出鋸齒狀(像是撕紙的效果)*/
 .paper{
     content: " ";
     display: block;
