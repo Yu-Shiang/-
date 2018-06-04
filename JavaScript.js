@@ -133,15 +133,82 @@ player2.rest();
 
 
 
-
-
-
-
-
-
-
 //彈跳視窗詢問用戶
 prompt("提示語",”預設值”);
 var y=prompt("提示語",”預設值”); //假如使用者輸入15，15會變成prompt的結果，y=15
+
+
+
+
+
+
+
+
+
+
+//-------------HTML DOM選擇方式
+function change(){
+  document.body.innerHTML="Hello";
+  var x=document.getElementById("id");
+  //控制CSS的範例
+  x.style.color="red";
+  x.style.fontWeight="bold";
+  x.style.display="none";
+  x.classList.toggle("on");//等同jQuery的toggleClass()
+}
+function over(element){
+  element.style.color:"red";
+}
+function out(element){
+
+}
+/*展示點擊、滑鼠滑過、滑鼠離開
+<div onclick="change();" onmouseover="over(this);" onmouseout="out(this);">
+*/
+
+
+
+
+
+/*
+<body onload="init();"> //當body載入成功後就觸發load事件
+  <button id="btn">Click</button>
+</body>
+*/
+function init(){
+  var btn=document.getElementById("id");
+  //現代新的寫法
+  var handler=function(){
+  };
+  btn.addEventListener("click", handler); //click後會觸發handler
+
+
+  //傳統的寫法，可以捨棄
+  btn.onclick=function(){
+  }
+
+}
+
+/*---------Event Object事件物件-----------
+addEventListener 
+瀏覽器會主動收集和事件有關的資訊，並製造出EventObject事件物件
+像是這樣 var eventObj=事件物件;
+當觸發時，呼叫已經註冊的事件處理函式 例如 handler(eventObj);
+一定會回傳事件物件，
+為了好抓取，所以我們會加上一個參數e(只是習慣寫e)，方便收集
+*/
+  var handler=function(e){ 
+    console.log(e.clientX+","+e.clientY); //抓取點擊當下的滑鼠X,y軸位置
+    console.log(e.keyCode); //按下哪一顆鍵
+  };
+
+
+
+
+
+
+//跳到某個<input>中，用focus()
+document.getElementById("input").focus();
+
 
 
