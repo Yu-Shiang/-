@@ -95,12 +95,13 @@ console.log(x); //x是3
 
 
 //-------------------物件---------------------
-
+//建立一個物件"player"
 var player=new Object();
-//物件裡面分兩種東西：屬性、方法
+//在這物件裡建立一個"屬性"
 player.name="Shine";//屬性。物件中有一屬性name是字串"Shine"
 player.hp=100;
-player.rest=function(){ //方法
+//在這物件裡建立一個"方法"
+player.rest=function(){ 
   this.hp++;
   console.log(this.hp);
 }
@@ -125,6 +126,52 @@ var player=new Player("Amy",100);
 player.rest();
 var player2=new Player("Sam",80);
 player2.rest();
+
+
+
+
+
+
+
+/*-------------------JSON---------------
+JSON跟物件非常像
+*/
+/*
+var point=new Object();
+point.x=3;
+point.y=4;
+point.get=function(){
+  alert(this.x+","+this.y);
+}
+以上面這一段來說，JSON可以這樣達成
+*/
+var point={
+  "x":3,
+  "y":4,
+  "get":function(){
+    alert(this.x+","+this.y);
+  }
+};
+
+//至於使用時則都一樣
+point.x;
+point.get();
+
+
+//point是一個"物件"，有時會需要轉成"字串"以利傳輸給後端
+var jsonStr=JSON.stringify(point);
+//jsonStr就是一段字串(若印出來就是程式碼)
+//!!!轉換時"方法"會被忽略，以上例來說get就會不見了/
+//接著如何將字串轉成物件?
+var plainObj=JSON.parse(jsonStr);
+
+
+
+
+
+
+
+
 
 
 
@@ -157,7 +204,7 @@ function change(){
   x.classList.toggle("on");//等同jQuery的toggleClass()
 }
 function over(element){
-  element.style.color:"red";
+  element.style.color="red";
 }
 function out(element){
 
@@ -180,10 +227,11 @@ function init(){
   //現代新的寫法
   var handler=function(){
   };
+  //註冊事件處理器，(事件名稱,對應的處理函式)
   btn.addEventListener("click", handler); //click後會觸發handler
 
 
-  //傳統的寫法，可以捨棄
+  //下面這個為過時寫法，可以捨棄
   btn.onclick=function(){
   }
 
@@ -192,7 +240,7 @@ function init(){
 /*---------Event Object事件物件-----------
 addEventListener 
 瀏覽器會主動收集和事件有關的資訊，並製造出EventObject事件物件
-像是這樣 var eventObj=事件物件;
+有點像是私下寫了一段 var eventObj=事件物件;
 當觸發時，呼叫已經註冊的事件處理函式 例如 handler(eventObj);
 一定會回傳事件物件，
 為了好抓取，所以我們會加上一個參數e(只是習慣寫e)，方便收集
@@ -207,8 +255,115 @@ addEventListener
 
 
 
+
+
+
+
+
+
+
+/*-----------------自動排程----------------*/
+//範例：倒數
+var timer;
+function init(){
+  timer=document.getElementById("timer");
+  window.setTimeout(countdown, 1000); //一秒鐘後執行countdown()
+}
+function countdown(){
+  timeer.innerHTML=timer.innerHTML-1;
+  if(timer.innerHTML>0){
+    windows.setTimeout(countdown, 1000);
+  }else{
+    console.log("時間到");
+  }
+  
+}
+//另一個寫法，每秒鐘執行一次countdoen();
+windwos.setInterval(countdown, 1000);
+
+
+
+
+
+
+
+
+
+
+
+/*----------------AJAX-------------- */
+/*
+不用重新載入網頁，即可抓取service上的資料呈現在畫面上
+(測試時須在service環境下)
+*/
+function getDate(pageName){
+  var req=new XMLHttpRequest(); //XMLHttpRequesr是內建函式
+  req.open("get","http://127.0.0.1/"+pageName);
+  req.onload=function(){//利用onload來得知連線成功，然後要做什麼
+    var content=document.getElementById("content");
+    content.innerHTML=this.responseText;
+  }
+  req.send();//送出連線
+}
+/*
+<body onload="getDate('popular.html')">
+  <div>
+    <span onclick="getDate('popular.html')";>熱門</span>
+    <span onclick="getDate('popular.html')";>熱門</span>
+  </div>
+<div id="content"></duv>
+*/
+
+
+
+
+
+
+
+
+/*-------------------宣告提升 Hoisting
+就算宣告放在後面，javascript也會自動提升到最前面，所以程式並不會出錯
+*/
+//以下這樣OK
+x=10;
+var x; 
+//以下這樣NG，被提升的只有var x，所以X並還沒有被塞入10
+alert(x);
+var x=10;
+
+//函式也是有同樣特性，這樣OK
+test();
+function test(){//函式宣告
+  console.log("Hello");
+}
+//以下這樣NG
+test();
+var test=funciotn(){
+  consloe.log("HELLO");
+}
+
+
+
+
+
+
+
+
+
+
 //跳到某個<input>中，用focus()
 document.getElementById("input").focus();
 
 
+
+
+
+
+//抓取網址#hash值
+//出處https://www.codexworld.com/how-to/get-hash-value-from-url-using-javascript/
+//xxxx.htm#aaa
+var hash = location.hash; //抓到#aaa
+var hash = location.hash.substr(1); //抓到aaa
+//用this.hash 可抓到href的hash #aaa
+<a href="http://www.codexworld.com/index.php#VideoTutorial" onclick="alert(this.hash)">Get Hash</a>
 
