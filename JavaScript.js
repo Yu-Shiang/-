@@ -314,6 +314,55 @@ function getDate(pageName){
 <div id="content"></duv>
 */
 
+//或用jQuery寫
+$(document).ready(function(){
+  $("span").click(function(){
+    htmlobj=$.ajax({
+      url:"/jquery/test1.txt",
+      async:false
+    });
+    $("#content").html(htmlobj.responseText);
+  });
+});
+
+//用jQuery的ajax來完成CRUD效果
+//http://muki.tw/tech/jquery-ajax-crud-and-template/
+//Read  抓資料顯示出來
+$.ajax({
+	url: ajax_url,
+	type: 'GET',
+	error: function(){
+		console.log('error');
+	},
+	success: function(e){
+		for(var i=0; i<e.length; i++) {
+			$(".result").append(
+				'<div class="full-msg" data-id="'+ e[i]._id +'">' +
+				'<div>姓名：<div class="name">'+ e[i].username +'</div><div class="update" >更新留言</div><div class="del" >刪除留言</div></div>' +
+				'<div>網站：<div class="url">'+ e[i].url +'</div></div>' +
+				'<div>電子郵件：<div class="email">'+ e[i].email +'</div></div>' +
+				'<div>標題：<div class="title">'+ e[i].title +'</div></div>' +
+				'<div><div class="message">'+ e[i]. message +'</div></div>' +
+				'</div>'
+			);
+		};
+	}
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
