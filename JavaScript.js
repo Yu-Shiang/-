@@ -1,12 +1,85 @@
-alert();
-console.log()
+//JS
+window.onload = function(){
 
+}
+// 或這樣 <body onload="init();"> //當body載入成功後就觸發load事件
+//jQuery
+$(document).ready(function(){
+  var wh = $(window).height(); 
+  $('.kv').height(wh);
+});
+
+
+
+
+
+/*
+兩種基本結構，物件的方法、屬性
+物件.方法(參數);  windows.alert(msg);
+物件.屬性 = 值;   sample.lenght = 5;
+ */
+
+
+
+
+
+/*-------------------宣告提升 Hoisting-------------------
+先執行在宣告也不會報錯，因為javascript會自動將宣告提升到最前面
+按照大陸教學，JS處理語法時會拆成兩個步驟 
+1.預解析
+  開始從上到下先執行宣告(包含var、function，但不會賦值、不會管函數內容是什麼)
+2.逐行解析
+  開始從上到下開始運行(這時才會賦值)，遇到執行函數時，函數內部依然遵循兩步驟，會先1.預解析、2.逐行解析
+*/
+test();
+var x=10;
+function test(){
+  console.log(x);
+}
+/* e.g. 
+以上語法實際運作時會被依序拆成兩步驟處理，
+1.預解析
+  var x;
+  宣告函數test(但不會管內容，只知道有一個函數test)
+2.逐行解析
+  執行函數test()，這時才開始拆解函數test，一樣先處理test內看看有無預解析(宣告)、接著才逐行解析。
+  這時函數會印出x，但x還沒給值，所以會輸出undefined
+  x=10;
+*/
+//函式也是有同樣特性，這樣OK
+
+
+
+
+
+alert();
+console.log();
+confirm("請稍後");  //彈跳視窗
 
 //資料型態轉換。字串轉換成數字 (把n轉成數字再放回n)
 n=Number(n);
 
-//彈跳視窗
-confirm("請稍後");
+
+//字串*字串時，如果字串是數字，依然能夠乘
+var sum="5"*5;//25
+
+
+
+
+
+/*------------------ this
+this 是指誰?? 掌握一大原則：誰呼叫就是指誰
+*/
+function fn(){
+  console.log(this);  //指windwos
+}
+btn.onclick = function(){
+  console.log(this);  //指btn
+  fn();   //並不是btn呼叫他，是這個function呼叫他，所以是windwos
+}
+
+
+
 
 
 //判斷式
@@ -15,17 +88,35 @@ if(){
 }else if(){
 }else{
 }
+//沒有大括弧也可以
+if() /*true時執行啥*/
+
+//另外一種寫法，三元運算子
+(/*判斷式*/)?"true時":"false時";
+
+
+
+
+
+
+
+
 
 /*--------------迴圈----------------*/
-//無窮迴圈，跑完會再重頭跑一次，直到false
-while(/*判斷*/){
-}
-
+//知道迴圈次數時可用for
 for(var i=1;i<=100;i++){
 }
 
-break; //強制跳出迴圈
-continue;  //強制進行下一次迴圈
+//不知道迴圈次數時可用while，直到false
+while(/*判斷*/){
+}
+//一定會先執行一次，後續再看是否滿足條件
+do(){
+}while(/*判斷式*/)
+
+
+break; //強制跳出整個迴圈
+continue;  //結束本次迴圈，繼續進行下一次迴圈 (continue後面的語法不會執行到)
 //舉例一旦n跑到50，就會脫離整個while迴圈
 var n=0;
 while(n<=100){
@@ -42,6 +133,7 @@ for(var n=0;n<=100;n++){
   }
   x++;
 }
+console.log(x);
 
 
 
@@ -50,24 +142,51 @@ for(var n=0;n<=100;n++){
 
 
 
-//--------------------函式-----------------
-//當程式需要重複使用就可以寫成函式已供重複使用。
 
+/*
+--------------------Function 函式(函數)-----------------
+當程式需要重複使用就可以寫成函式已供重複使用。
+沒有呼叫時並不會執行這內容
+*/
 function name(n1,n2){
-  //沒有呼叫時並不會執行這內容
-  //參數可以多組
+  //參數屬於區域變數，在'呼叫'函數時一樣會先Hositing自動宣告
 
   //可搭配使用return
   return n1+n2;/*這個值回傳到呼叫的地方*/
 }
-//呼叫執行，會跳進函式
-name("參數1","參數2");//會得到return的值
-
-
-//--------------------以上，也可以寫這樣
+//呼叫執行，才會跳進函式
+name(10,20,30);  //會得到return的值（多餘的參數不會被用到）
+//以上，也可以寫這樣
 var name=function(n1,n2){
 }
 name();//呼叫
+
+//函式內建一個arguments，他會記錄下來呼叫時的全部參數，不管有沒有用到。
+//e.g. 加總函式
+function sum(){
+  var x=0;
+  for(index in arguments){
+    x+=arguments[index];
+  }
+  return x;
+  console.log(arguments.length); //可以得知共有幾個參數 = 3
+}
+sum(10,20,30);
+
+
+//jQuery的寫法
+$(function(){
+  // Document is ready
+});
+
+
+
+
+
+
+
+
+
 
 
 //全域變數 與 區域變數
@@ -80,6 +199,10 @@ function test(){
   console.log(x+y);//x是5
 }
 console.log(x); //x是3
+/*
+區域變數：僅能夠在函式中透過關鍵字 var 宣告，每個不同的函式可以有相同的變數名稱，，每個函式間的變數互不干涉，也無法在函式外其他地方調用。
+僅有在函式（function）內，透過 var 所宣告的變數才能算是區域變數，若沒有使用 var 關鍵字宣告，無論是在哪裡宣告的變數，都會屬於 Global Variable 全域變數的範疇，此細節請多多注意避免錯誤。
+*/
 
 
 
@@ -87,14 +210,72 @@ console.log(x); //x是3
 
 
 
+/*
+-----------------Array 陣列---------------------
+陣列從0開始
+colors=['black','blue','red'];
+colors[0]值就是'black';
+*/
+//計算陣列數量有幾個
+colors.length;
+//動態加入陣列到最後一個，有兩種方式：
+colors.push("Purple");
+colors[colors.length] = 'Purple';
+
+//取出所有的值，可用for迴圈 或 for-in
+for(var i=0; i<colors.length; i++){
+  console.log(i+'::'+colors[i]);
+}
+for(index in colors){
+  console.log(colors[index]);
+}
+
+//join : 將陣列元素用固定符號串成"字串"，預設為,
+var arr = ["jack", "john", "may", "su", "Ada"];
+var n = arr.join(); //n為字串 "jack,john,may,su,Ada"
+var n = arr.join("、"); //n為字串 "jack、john、may、su、Ada"
+var n = arr.join(""); //n為字串 "jackjohnmaysuAda"
+
+//以下用這陣列示範
+var arr = [1, 2, 3, 4, 5, 6];
+//設定了length數量，多出的項目會被清空，第4個及以後就被刪除了
+arr.length=3; //[1,2,3]
+//shift 刪除陣列第一個元素，並回傳刪除的元素值  x=1
+var x=arr.shift();
+//unshift 新增第一個元素到陣列內，並回傳陣列的新長度  x=7
+var x=arr.unshift("0");
+//pop 刪除陣列最後一個元素，並回傳刪除的元素值   x=6
+var x=arr.pop();
+//push 在陣列尾巴新增一個或多個元素，並回傳新的陣列長度 x=8
+var x=arr.push(7,8);
+//清除該陣列元素（變空值）
+delete arr[1];  //結果是 [1,  ,3, 4, 5, 6]
+//splice 增加或刪除元素， 會返回刪除的元素
+//以下的意思是(從第0個開始,刪除2項(1,2),塞入新值,塞入新值,可多個)
+var temp = arr.splice(0,2,"new 1","new2");  //arr結果是 ["new 1", 3, 4, 5, 6]，而temp會收到刪除的值"1,2"
+
+//陣列排序，由小到大
+var arr = [5, 9, 1, 3, 2, 6];
+arr.sort();   //結果為[1, 2, 3, 5, 6, 9]
+//以下不是複製，這樣的賦值動作，arry1、arry2指向的會是"同一組"陣列
+var arr1=[1,2,3,4,5];
+var arr2 = arr1;  //有點類似捷徑的概念 arr2是通往該陣列的捷徑
+//正確的複製方式如下：
+var arr1=[1,2,3,4,5];
+var arr2=[];
+for(index in arr1){
+  arr2[index]=arr1[index];
+}
 
 
 
 
 
 
-
-//-------------------物件---------------------
+/*
+-------------------物件---------------------
+大括弧{ }，裡面小項目是用;作為分隔結束
+*/
 //建立一個物件"player"
 var player=new Object();
 //在這物件裡建立一個"屬性"
@@ -105,8 +286,7 @@ player.rest=function(){
   this.hp++;
   console.log(this.hp);
 }
-
-player.rest();//呼叫，**要加上()
+player.rest();//加上()表示你要呼叫
 
 
 
@@ -120,7 +300,6 @@ function Player(n1,n2){//業界習慣首字大寫
     console.log(this.hp);
   }
 }
-
 //使用時，且建立兩個物件
 var player=new Player("Amy",100);
 player.rest();
@@ -131,23 +310,14 @@ player2.rest();
 
 
 
-
-
-/*-------------------JSON---------------
-JSON跟物件非常像
-*/
 /*
-var point=new Object();
-point.x=3;
-point.y=4;
-point.get=function(){
-  alert(this.x+","+this.y);
-}
-以上面這一段來說，JSON可以這樣達成
+-------------------JSON-----------------
+JSON跟物件非常像，JSON也是大括弧{ }，但裡面小項目是用,分隔
 */
 var point={
   "x":3,
   "y":4,
+  "000":05487,
   "get":function(){
     alert(this.x+","+this.y);
   }
@@ -156,6 +326,9 @@ var point={
 //至於使用時則都一樣
 point.x;
 point.get();
+//如果key是數字，就要改用
+point['000'];
+point['x']; //當然這樣也可以
 
 
 //point是一個"物件"，有時會需要轉成"字串"以利傳輸給後端
@@ -164,6 +337,12 @@ var jsonStr=JSON.stringify(point);
 //!!!轉換時"方法"會被忽略，以上例來說get就會不見了/
 //接著如何將字串轉成物件?
 var plainObj=JSON.parse(jsonStr);
+
+
+
+
+
+
 
 
 
@@ -194,14 +373,36 @@ var y=prompt("提示語",”預設值”); //假如使用者輸入15，15會變�
 
 
 //-------------HTML DOM選擇方式
+
+//JS, 只會抓到第一個.example
+document.querySelector(".example");
+document.getElementById("id");
+//JS，抓出全部<H1>、class="class"(會用陣列儲存)，若要取用記得[]
+document.getElementsByTagName("H1")[0];
+document.getElementsByClassName("class");
+//jQuery，抓取結果是一個陣列，就算沒抓到也是一個空陣列
+$("h1")[0];
+$("class");
+
+
 function change(){
   document.body.innerHTML="Hello";
   var x=document.getElementById("id");
-  //控制CSS的範例
+  //JS，控制CSS style的範例
   x.style.color="red";
   x.style.fontWeight="bold";
   x.style.display="none";
+  //jQuery，控制CSS style的範例
+  $("#id").css( "background", "yellow");
+
+  //加上class="on"的幾個方式
   x.classList.toggle("on");//等同jQuery的toggleClass()
+  x.setAttribute("class", "on");
+  x.className="on";
+  //jQuery的寫法
+  $("#id").addClass("on");
+  $("#id").removeClass("on");
+  $("#id").toggleClass("on");
 }
 function over(element){
   element.style.color="red";
@@ -209,8 +410,14 @@ function over(element){
 function out(element){
 
 }
-/*展示點擊、滑鼠滑過、滑鼠離開
-<div onclick="change();" onmouseover="over(this);" onmouseout="out(this);">
+/*--------常見滑鼠事件----*/
+element.onclick=function(){};       //點擊後放開
+element.ondbclick=function(){};     //雙擊
+element.onmousedown=function(){};   //滑鼠點擊
+element.onmouseup=function(){};     //滑鼠放開
+element.onmouseover=function(){};   //滑鼠移入
+element.onmouseout=function(){};    //滑鼠移出
+element.onmousemove=function(){};   //滑鼠移動 (像是拖曳)
 */
 
 
@@ -227,15 +434,19 @@ function init(){
   //現代新的寫法
   var handler=function(){
   };
-  //註冊事件處理器，(事件名稱,對應的處理函式)
+  //註冊事件處理器，(事件名稱,對應的處理函式,採用捕獲方式(true或false))
+  //element.addEventListener(event, function, useCapture)
   btn.addEventListener("click", handler); //click後會觸發handler
+  btn.addEventListener("mousemove", function(){
 
+  })
 
   //下面這個為過時寫法，可以捨棄
   btn.onclick=function(){
   }
 
 }
+
 
 /*---------Event Object事件物件-----------
 addEventListener 
@@ -318,8 +529,12 @@ function getDate(pageName){
 $(document).ready(function(){
   $("span").click(function(){
     htmlobj=$.ajax({
-      url:"/jquery/test1.txt",
-      async:false
+      type:'GET',
+      url: "/jquery/test1.txt",
+      async: false,
+      success: function(e){
+        //成功的話~資料會傳到e變數
+      }
     });
     $("#content").html(htmlobj.responseText);
   });
@@ -370,27 +585,29 @@ $.ajax({
 
 
 
-/*-------------------宣告提升 Hoisting
-就算宣告放在後面，javascript也會自動提升到最前面，所以程式並不會出錯
-*/
-//以下這樣OK
-x=10;
-var x; 
-//以下這樣NG，被提升的只有var x，所以X並還沒有被塞入10
-alert(x);
-var x=10;
 
-//函式也是有同樣特性，這樣OK
-test();
-function test(){//函式宣告
-  console.log("Hello");
-}
-//以下這樣NG
-test();
-var test=funciotn(){
-  consloe.log("HELLO");
-}
 
+
+
+
+/*-------單純用javascript控制放大動畫---------- */
+//抓取物件的外觀尺寸 (javascript)
+var box=document.getElementById("box");
+//取得這個物件的全部樣式
+var styles=window.getComputedStyle(box);
+//取得寬度，例如"50px"
+var size=styles.getPropertyValue("width");
+//因為得到的是字串"50px"，將他轉換成數字
+size=parseInt(size);
+//放大動畫
+var id=window.setInterval(function(){
+  if(size>200){
+    window.clearInterval(id);
+    return;
+  }
+  size+=2;//每次+2
+  box.style.width=size+"px";
+}, 10);//每0.01秒執行一次函式
 
 
 
@@ -403,10 +620,23 @@ var test=funciotn(){
 //跳到某個<input>中，用focus()
 document.getElementById("input").focus();
 
+//JS,抓出全部.example，然後將第1個改顏色
+function myFunction() {
+  var x = document.querySelectorAll(".example");
+  x[0].style.backgroundColor = "red";
+}
+
+//變更style樣式
+//JS寫法  .style.  若遇到-就省略後字變大寫
+this.style.backgroundColor='#222222';
+this.style.color='white';
 
 
+//回上一頁
+window.history.back();
 
-
+//JS,抓瀏覽器高度
+var wh=window.innerHeight;
 
 //抓取網址#hash值
 //出處https://www.codexworld.com/how-to/get-hash-value-from-url-using-javascript/
@@ -416,3 +646,86 @@ var hash = location.hash.substr(1); //抓到aaa
 //用this.hash 可抓到href的hash #aaa
 <a href="http://www.codexworld.com/index.php#VideoTutorial" onclick="alert(this.hash)">Get Hash</a>
 
+
+//javascript 擷取字串中的其中一段(抓出固定字數)
+String.substr(從0開始，第幾個字符開始抓,共要抓出幾個字符);
+String.substring(從0開始，第幾個字符開始抓,抓到第幾個字符前);
+
+/*JS，取整數、四捨五入
+強制進位 : Math.ceil(a);
+四捨五入 : Math.round(a));
+無條件舍去 : Math.floor(a);
+無調整捨去：parseInt()
+parseInt("100px");   //100  parseInt是将数据化为整数（数据必须数字开头），parseInt("px100")  ==>NAN
+Math.floor("100px"); //NAN  Math.floor是对数字向下取整；
+*/
+
+
+//jQuery捲動到指定單元
+$("html,body").animate({scrollTop: $("#group-prod").offset().top}, 500);
+$(function(){
+  $("#gotop").click(function(){
+      $("html,body").animate({
+          scrollTop:0
+      },1000);
+  });
+  $(window).scroll(function() {
+      if ( $(this).scrollTop() > 300){
+          $('#gotop').fadeIn("fast");
+      } else {
+          $('#gotop').stop().fadeOut("fast");
+      }
+  });
+});
+
+
+
+//jQuery，變更整塊為純文字內容
+$(".sample").text("HELLO!");
+//jQuery，如果沒給值，表示要抓取.sample裡面目前的文字
+$(".sample").text();
+//jQuery，抓屬性 (沒給值就表示要要抓取) <img width="50">
+$(".sample").attr("data-value","30");//給予值
+$("img").attr({width:"50",height:"80"});//給予值
+$(".sample").attr("data-value");//抓取
+//jQuery，變更整塊html內容
+$(".sample").html("<div class='xxx'></div>");
+//jQuery，改物件的value值
+$("input").val("test");
+//jQuery，於內部的前方插入html內容
+$(".sample").prepend("<div class='xxx'></div>");
+//jQuery，於內部的後方插入html內容
+$(".sample").append("<div class='xxx'></div>");
+
+//jQuery變更CSS (用style寫在元素上)
+$(".sample").css("background-color","red");
+//JS寫法  **教學網站說就是省略-，然後-後面字母變大寫
+sample.style.backgroundColor="red";
+
+
+//尋找子元素
+$(".sample").find(".child");
+//尋找最近的div元素
+$(".sample").closest("div");
+
+//jQuery，滑鼠進入
+$(".sample").mouseenter(function(){
+})
+//jQuery，滑鼠離開
+$(".sample").mouseleave(function(){
+})
+//jQuery，拆字串，結果會是陣列
+"1g2g3".split("g"); //結果是[1,2,3]
+
+//以逗號來作為分割的字元 =  ["1", "2", "3"] 陣列
+//replace("要取代的東西","取代成什麼") 取代        
+"hello".replace("e", "x");
+//經過特定時間執行
+setTimeout(function(){
+  //do something
+},5000);
+
+//每經過一段特定時間就執行一次
+setInterval(function(){
+  //do something
+},1000);
