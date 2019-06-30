@@ -1,17 +1,31 @@
 /*-------flex--------*/
 .parent{
-    display: flex;
-    justify-content: center;/*子元素左右置中*/
-    align-items: center;/*子元素垂直置中*/
+  display: flex;
+  justify-content: center;/*子元素左右置中*/
+  align-items: center;/*子元素垂直置中*/
 }
 .child{
-    flex:none;/*不縮放(跟傳統DIV一樣)固定尺寸*/
-    flex:auto;/*自動縮放*/
+  flex:none;/*不縮放(跟傳統DIV一樣)固定尺寸*/
+  flex:auto;/*自動縮放*/
 }
 
 
+/*禁止選取文字*/
+div {
+-webkit-user-select: none; /* Safari 3.1+ */
+-moz-user-select: none; /* Firefox 2+ */
+-ms-user-select: none; /* IE 10+ */
+user-select: none; /* Standard syntax */
+}
 
 
+/*消除select下拉箭頭*/
+select{
+-webkit-appearance: none; 
+-moz-appearance: none; 
+appearance: none;
+}
+select.form-control::-ms-expand{ display: none;}  
 
 /*  :target 可以運用來做純CSS燈箱、頁籤效果、或是點擊後出現動畫
 W3C有範例：https://www.w3schools.com/cssref/sel_target.asp
@@ -39,16 +53,16 @@ div > .class{}
 
 /*劃出鋸齒狀(像是撕紙的效果)*/
 .paper{
-    content: " ";
-    display: block;
-    position: absolute;
-    bottom: -16px;
-    left: 0px;
-    width: 100%;
-    height: 20px;
-    background: -webkit-linear-gradient(#ffffff 0%, transparent 0%), -webkit-linear-gradient(135deg, #E9E9E9 33.33%, transparent 33.33%) 0 0%, transparent -webkit-linear-gradient(45deg, #E9E9E933.33%, #FFF 33.33%) 0 0%;
-    background-repeat: repeat-x;
-    background-size: 0px 100%, 6px 7px, 6px 6px;
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: -16px;
+  left: 0px;
+  width: 100%;
+  height: 20px;
+  background: -webkit-linear-gradient(#ffffff 0%, transparent 0%), -webkit-linear-gradient(135deg, #E9E9E9 33.33%, transparent 33.33%) 0 0%, transparent -webkit-linear-gradient(45deg, #E9E9E933.33%, #FFF 33.33%) 0 0%;
+  background-repeat: repeat-x;
+  background-size: 0px 100%, 6px 7px, 6px 6px;
 }
 
 /*
@@ -63,8 +77,8 @@ input, textarea {font-size: initial;}
 實際在iPhone上測試時，發現Safari（也包括iOS應用內置瀏覽器使用的UIWebView）竟然完全禁用掉了名著的“慣性滾動”效果，導致滑動時很卡
 */
 div {
- height: 100%;
- overflow-y: auto;
+height: 100%;
+overflow-y: auto;
 /*解決方式，添加上以下兩行*/
 -webkit-overflow-scrolling: touch;
 -webkit-transform: translate3d(0,0,0);
@@ -76,20 +90,20 @@ div {
 /*讓 float 的 div 高度相同*/
 /*利用一個很巨大的 padding 、 margin 互相消除達成*/
 #left-col {
-    float: left;
-    width: 50%;
-    background-color: #eee;
-    padding-bottom: 500em;
-    margin-bottom: -500em;
-  }
-  #right-col {
-    float: left;
-    width: 50%;
-    margin-right: -1px; /* For IE */
-    background-color: #369;
-    padding-bottom: 500em;
-    margin-bottom: -500em;
-  }
+  float: left;
+  width: 50%;
+  background-color: #eee;
+  padding-bottom: 500em;
+  margin-bottom: -500em;
+}
+#right-col {
+  float: left;
+  width: 50%;
+  margin-right: -1px; /* For IE */
+  background-color: #369;
+  padding-bottom: 500em;
+  margin-bottom: -500em;
+}
 
 
 
@@ -134,9 +148,9 @@ display: table;
 <td data-title="門市編號" class="large">01</td>
 */
 .large:before{
-    content: attr(data-title);
-    content: " (" attr(href) ")";   /*而且還可以組合()等靜態文字*/
-    /*裡面也可以放unicode字碼，但是要用\取代U+，例如U+FF1A 要寫成content:”\FF1A”*/
+  content: attr(data-title);
+  content: " (" attr(href) ")";   /*而且還可以組合()等靜態文字*/
+  /*裡面也可以放unicode字碼，但是要用\取代U+，例如U+FF1A 要寫成content:”\FF1A”*/
 }
 
 
@@ -149,10 +163,10 @@ display:table-cell;的margin無效問題
 可用border-spacing代替
 */
 .table {
-    display: table;
-    border-collapse:separate;
-    border-spacing: 5px;
-  }
+  display: table;
+  border-collapse:separate;
+  border-spacing: 5px;
+}
 
 
 

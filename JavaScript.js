@@ -8,7 +8,29 @@ $(document).ready(function(){
   var wh = $(window).height(); 
   $('.kv').height(wh);
 });
+//偵測視窗尺寸變化
+$(window).resize(function(){
+  var wdth=$(window).width();
+});
 
+
+/*阻止事件冒泡*/
+object.onclick = function(ev){
+  ev.stopPropagation ? ev.stopPropagation() : ev.cancelBubble = true;
+}
+
+/*事件源*/
+object.onclick = function(ev){
+  ev = window.ev || ev;
+  var self = ev.target || ev.srcElement;
+}
+
+
+//這樣可以將div搬移到body最後方
+$('div').appendTo('body');
+
+//抓物件尺寸總高
+$('div').outerHeight(true);
 
 
 
@@ -397,6 +419,8 @@ function change(){
 
   //加上class="on"的幾個方式
   x.classList.toggle("on");//等同jQuery的toggleClass()
+  x.classList.add("on");
+  
   x.setAttribute("class", "on");
   x.className="on";
   //jQuery的寫法
