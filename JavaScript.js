@@ -25,6 +25,18 @@ object.onclick = function(ev){
   var self = ev.target || ev.srcElement;
 }
 
+//滑鼠對於瀏覽器頁面位置
+ev.clientX;
+ev.clientY;
+//滑鼠相對於事件源位置
+ev.offsetX;
+ev.offsetY;
+
+
+
+
+
+
 
 //這樣可以將div搬移到body最後方
 $('div').appendTo('body');
@@ -458,16 +470,17 @@ function init(){
   //現代新的寫法
   var handler=function(){
   };
-  //註冊事件處理器，(事件名稱,對應的處理函式,採用捕獲方式(true或false))
+  //註冊事件處理器，(事件名稱,對應的處理函式,true是捕獲false是冒泡))
   //element.addEventListener(event, function, useCapture)
   btn.addEventListener("click", handler); //click後會觸發handler
   btn.addEventListener("mousemove", function(){
-
   })
+  btn.removeEventListener('click'); //移除事件監聽
 
   //下面這個為過時寫法，可以捨棄
   btn.onclick=function(){
   }
+  btn.onclick=null;//移除click函數
 
 }
 
