@@ -540,27 +540,48 @@ windwos.setInterval(countdown, 1000);
 
 
 /*----------------AJAX-------------- */
-/*
-不用重新載入網頁，即可抓取service上的資料呈現在畫面上
-(測試時須在service環境下)
-*/
-function getDate(pageName){
-  var req=new XMLHttpRequest(); //XMLHttpRequesr是內建函式
-  req.open("get","http://127.0.0.1/"+pageName);
-  req.onload=function(){//利用onload來得知連線成功，然後要做什麼
-    var content=document.getElementById("content");
-    content.innerHTML=this.responseText;
+
+//JS (測試時須在service環境下)
+//封裝JS，第一個參數是JSON位置、第二個位置是成功後要執行的函數
+function getDate(pageName, successFn){
+  //XMLHttpRequesr是內建函式
+  var request=new XMLHttpRequest(); 
+  //或這樣寫?
+  var request= window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+
+  request.open("get","http://127.0.0.1/"+pageName, true);
+
+  //利用onload來得知連線成功，然後要做什麼
+  // request.onload=function(){
+  //   var content=document.getElementById("content");
+  //   content.innerHTML=this.responseText;
+  // }
+
+  //送出連線
+  request.send();
+  request.onreadystatechange = function(){
+    if(request.readyState == 4){
+      if(request.status == 200){ 
+        //確認收到資料，將json存入變數，可以使用了
+        var jsonData = JSON.parse(request.response);
+        //或者呼叫參數，先檢查有參數才跑
+        if(successFn){
+          successFn(request.response);//把JSON變成參數(res)傳回去
+        };
+        //也可以這樣簡寫，使用OR的概念，兩個都是true時才是true
+        successFn && successFn(request.response);
+      }else{
+        //獲取失敗
+      }
+    }
   }
-  req.send();//送出連線
 }
-/*
-<body onload="getDate('popular.html')">
-  <div>
-    <span onclick="getDate('popular.html')";>熱門</span>
-    <span onclick="getDate('popular.html')";>熱門</span>
-  </div>
-<div id="content"></duv>
-*/
+//實際呼叫可能會這樣寫
+getDate('http://xxxxxxxxxxx',function(res){
+  console.log(res);
+});
+
+
 
 //或用jQuery寫
 $(document).ready(function(){
@@ -731,13 +752,25 @@ $(".sample").html("<div class='xxx'></div>");
 $("input").val("test");
 //jQuery，於內部的前方插入html內容
 $(".sample").prepend("<div class='xxx'></div>");
-//jQuery，於內部的後方插入html內容
+
+//於內部的後方插入html內容
+//JS
+object.appendChild("");
+//jQuery
 $(".sample").append("<div class='xxx'></div>");
 
-//jQuery變更CSS (用style寫在元素上)
-$(".sample").css("background-color","red");
+
+//創建DOM   div.section (JS)
+var oSection = document.createElement('div');
+oSection.className = 'section';
+document.appendChild(oSection);
+
+
+//變更CSS (用style寫在元素上)
 //JS寫法  **教學網站說就是省略-，然後-後面字母變大寫
 sample.style.backgroundColor="red";
+//jQuery
+$(".sample").css("background-color","red");
 
 
 //尋找子元素

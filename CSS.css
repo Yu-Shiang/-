@@ -109,9 +109,15 @@ overflow-y: auto;
 
 
 
+.item{
+  /*控制瀏覽器過度捲動行為，不要影響到上一層*/
+  overscroll-behavior: contain;
+  overscroll-behavior-y: none;  /*只控制y軸*/
 
+  /*禁止觸控行為*/
+  touch-action: none;
 
-
+}
 
 
 
