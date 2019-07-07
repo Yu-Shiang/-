@@ -1,3 +1,12 @@
+//封裝的時候要先想用的時候怎麼用，看需要那些參數，再來寫封裝
+
+
+
+
+
+
+
+
 //JS
 window.onload = function(){
 
@@ -411,6 +420,7 @@ var y=prompt("提示語",”預設值”); //假如使用者輸入15，15會變�
 //JS, 只會抓到第一個.example
 document.querySelector(".example");
 document.getElementById("id");
+id.style; //其實 getElementById 可以省略，直接寫id名稱也能用
 //JS，抓出全部<H1>、class="class"(會用陣列儲存)，若要取用記得[]
 document.getElementsByTagName("H1")[0];
 document.getElementsByClassName("class");
@@ -540,25 +550,25 @@ windwos.setInterval(countdown, 1000);
 
 
 /*----------------AJAX-------------- */
-
-//JS (測試時須在service環境下)
-//封裝JS，第一個參數是JSON位置、第二個位置是成功後要執行的函數
-function getDate(pageName, successFn){
-  //XMLHttpRequesr是內建函式
-  var request=new XMLHttpRequest(); 
-  //或這樣寫?
+//封裝JS，1.請求方式 2.URL位置 3.要傳遞的參數 4.成功後要執行的函數
+function getDate(method, url, args, successFn){
+  //基本寫法var request=new XMLHttpRequest(); 或相容性完整寫法
   var request= window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
-  request.open("get","http://127.0.0.1/"+pageName, true);
+  if(method == 'get'){
+    url = url + args; //假如是get，參數會是直接接在網址後面
+  }
+  request.open(method,url, true);
 
-  //利用onload來得知連線成功，然後要做什麼
-  // request.onload=function(){
-  //   var content=document.getElementById("content");
-  //   content.innerHTML=this.responseText;
-  // }
+  
+  if(method == 'get'){
+    request.send();
+  }else{ //post
+    request.setRequestHeader('content-type','application/x-www-form-urlencoded');
+    request.send(args);
+  }
+  
 
-  //送出連線
-  request.send();
   request.onreadystatechange = function(){
     if(request.readyState == 4){
       if(request.status == 200){ 
@@ -566,7 +576,7 @@ function getDate(pageName, successFn){
         var jsonData = JSON.parse(request.response);
         //或者呼叫參數，先檢查有參數才跑
         if(successFn){
-          successFn(request.response);//把JSON變成參數(res)傳回去
+          successFn(request.response);//把JSON變成參數(response)傳回去
         };
         //也可以這樣簡寫，使用OR的概念，兩個都是true時才是true
         successFn && successFn(request.response);
@@ -575,15 +585,27 @@ function getDate(pageName, successFn){
       }
     }
   }
+
+
 }
-//實際呼叫可能會這樣寫
-getDate('http://xxxxxxxxxxx',function(res){
-  console.log(res);
+//實際呼叫會這樣寫
+getDate('get','http://xxxxxxxxxxx','要傳遞的內容',function(response){
+  console.log(response);
 });
 
 
 
-//或用jQuery寫
+
+
+
+
+
+
+
+
+
+
+//jQuery寫法
 $(document).ready(function(){
   $("span").click(function(){
     htmlobj=$.ajax({
@@ -675,6 +697,39 @@ var id=window.setInterval(function(){
 
 
 
+
+
+
+
+
+
+/*--------------Cookie-------------------*/
+
+document.cookie = 'itemname=哈囉';  //若沒有設定有效時間，瀏覽器關閉就會消失
+//設定有效時間的cookie，設定30秒鐘內有效
+var expiresTime = new Date();
+expiresTime.setSeconds(expiresTime.getSeconds() + 30);  //如果時間設成過期的，就等於可以刪除該cookie(因為過期了)
+document.cookie = 'age=34;expires=' + expiresTime.toGMTString();
+//抓取cookie內容
+console.log(document.cookie); //抓出來時會是一字串，且該網域全抓並用; 分隔，如果要取用其中一值，要自行拆解字串
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //跳到某個<input>中，用focus()
 document.getElementById("input").focus();
 
@@ -719,6 +774,43 @@ Math.floor("100px"); //NAN  Math.floor是对数字向下取整；
 */
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//JS，捲動事件。示範捲動到元素底部再載入次頁
+window.onscroll = function(){
+  console.log('捲軸捲動!!');
+
+  var page = 1;
+  var isLoad = true;  //用來標示目前有沒有在載入 (前面載入完後才能允許再觸發下一次載入)
+
+  //抓取捲軸位置
+  var scrollTop = documnent.body.scrollTop || document.documentElement.scrollTop;
+  //抓取視窗尺寸
+  var screenH = document.documnentElement.clientHeight;
+  //抓取DOM物件尺寸
+  var idheight = id.offsetHeight + id.offsetTop;
+
+  if(scrollTop + screenH > idheight){
+    if(isLoad){
+      page++;
+      isLoad = false;
+    }
+  }
+}
+
+
 //jQuery捲動到指定單元
 $("html,body").animate({scrollTop: $("#group-prod").offset().top}, 500);
 $(function(){
@@ -735,6 +827,19 @@ $(function(){
       }
   });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
