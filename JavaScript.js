@@ -43,6 +43,10 @@ ev.offsetY;
 
 
 
+//以下三種，結尾不用加 ;
+function demo(){} 
+for(){}
+if(){}
 
 
 
