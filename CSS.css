@@ -84,7 +84,13 @@ overflow-y: auto;
 -webkit-transform: translate3d(0,0,0);
 }
 
-
+/*
+iOS中的iframe內若有使用輪播JS(例如slick, owl)會出現bug，解決方式在iframe中的body添加css
+https://github.com/davidjbradshaw/iframe-resizer/issues/183#issuecomment-244183926
+*/
+body{
+  width: 1px; min-width: 100%
+}
 
 
 /*讓 float 的 div 高度相同*/
