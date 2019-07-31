@@ -21,7 +21,10 @@ $(document).ready(function(){
 $(window).resize(function(){
   var wdth=$(window).width();
 });
-
+//JS，視窗寬度(包含scrollbar)
+window.innerWidth;
+//JS，視窗寬度(扣除scrollbar)
+document.documentElement.clientWidth;
 
 /*阻止事件冒泡*/
 object.onclick = function(ev){
