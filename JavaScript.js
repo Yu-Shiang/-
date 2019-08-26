@@ -266,6 +266,42 @@ console.log(x); //x是3
 
 
 
+
+/*Date時間*/
+var 現在時間 = new Date(); //創建現在時間
+var 指定日期 = new Date(year, month, day, hours, minutes, seconds, milliseconds); //參數依序填寫，最終沒寫的則是預設
+var 用字串指定日期 = new Date("2019-01-01");
+
+nowTime.getTime();  //1970/1/1至今毫秒
+nowTime.getSeconds();  //秒
+nowTime.getMinutes();  //分
+nowTime.getHours();  //小時
+nowTime.getDay();  //星期幾
+nowTime.getDate();  //日
+nowTime.getMonth()+1;  //月
+nowTime.getFullYear();  //年
+
+/*計算兩個日期*/
+/*設定日期8/15 12:00*/
+var time = new Date();
+time.setMonth(7);
+time.setDate(15);
+time.setHours(12);
+time.setMinutes(0);
+time.setSeconds(0);
+var endTime = time.getTime();
+var offsetTime = (endTime - nowTime) / 1000;  //兩個日期的差距的秒數
+var ss = parseInt(offsetTime % 60);  //換算秒
+var mm = parseInt(offsetTime / 60 % 60);  //換算分
+var HH = parseInt(offsetTime / 60 / 60);  //換算小時
+
+
+
+
+
+
+
+
 /*
 -----------------Array 陣列---------------------
 陣列從0開始
