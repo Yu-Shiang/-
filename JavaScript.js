@@ -271,6 +271,7 @@ console.log(x); //x是3
 var 現在時間 = new Date(); //創建現在時間
 var 指定日期 = new Date(year, month, day, hours, minutes, seconds, milliseconds); //參數依序填寫，最終沒寫的則是預設
 var 用字串指定日期 = new Date("2019-01-01");
+var 轉成JSON格式 = 現在時間.toJSON().slice(0,10).replace(/-/g,'/'); //並取前面年月日的部分並轉成/分隔
 
 nowTime.getTime();  //1970至今毫秒 (同下面)
 nowTime = Date.now(); //1970至今毫秒 (同上面)
