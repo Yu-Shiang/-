@@ -272,7 +272,8 @@ var 現在時間 = new Date(); //創建現在時間
 var 指定日期 = new Date(year, month, day, hours, minutes, seconds, milliseconds); //參數依序填寫，最終沒寫的則是預設
 var 用字串指定日期 = new Date("2019-01-01");
 
-nowTime.getTime();  //1970/1/1至今毫秒
+nowTime.getTime();  //1970至今毫秒 (同下面)
+nowTime = Date.now(); //1970至今毫秒 (同上面)
 nowTime.getSeconds();  //秒
 nowTime.getMinutes();  //分
 nowTime.getHours();  //小時
