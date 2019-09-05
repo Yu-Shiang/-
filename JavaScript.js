@@ -17,10 +17,17 @@ $(document).ready(function(){
   var wh = $(window).height(); 
   $('.kv').height(wh);
 });
-//偵測視窗尺寸變化
+//偵測視窗尺寸變化，通常會搭配定時器，避免拖曳變更尺寸時執行數十次function
+var timer;
 $(window).resize(function(){
-  var wdth=$(window).width();
+  timer=setTimeout(function(){
+    ww=$(window).width();
+  },500);
 });
+clearTimeout(timer);
+
+
+
 //JS，視窗寬度(包含scrollbar)
 window.innerWidth;
 //JS，視窗寬度(扣除scrollbar)
