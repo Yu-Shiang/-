@@ -856,9 +856,12 @@ window.onscroll = function(){
   var isLoad = true;  //用來標示目前有沒有在載入 (前面載入完後才能允許再觸發下一次載入)
 
   //抓取捲軸位置
-  var scrollTop = documnent.body.scrollTop || document.documentElement.scrollTop;
+  var scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
   //抓取視窗尺寸
-  var screenH = document.documnentElement.clientHeight;
+  var screenH = document.documentElement.clientHeight;
+
+  //offsetHeight 是物件的總高(含padding)
+  //offsetTop 是物件距離視窗頂部的高度
   //抓取DOM物件尺寸
   var idheight = id.offsetHeight + id.offsetTop;
 
@@ -869,6 +872,16 @@ window.onscroll = function(){
     }
   }
 }
+//JS.控制捲動，例如捲動到x300 y500
+window.scrollTo(300, 500);
+//
+window.scrollTo({ 
+  left: 300,
+  top: 500, 
+  behavior: "smooth" // smooth(平滑滾動),instant(瞬間滾動)
+});
+
+
 
 
 //jQuery捲動到指定單元
