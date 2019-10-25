@@ -17,7 +17,7 @@ $(document).ready(function(){
   var wh = $(window).height(); 
   $('.kv').height(wh);
 });
-//偵測視窗尺寸變化，通常會搭配定時器，避免拖曳變更尺寸時執行數十次function
+//jQuery 偵測視窗尺寸變化，通常會搭配定時器，避免拖曳變更尺寸時執行數十次function
 var timer;
 $(window).resize(function(){
   timer=setTimeout(function(){
@@ -25,7 +25,10 @@ $(window).resize(function(){
   },500);
 });
 clearTimeout(timer);
-
+//JS寫法
+window.onresize = function(){
+  console.log("視窗發生改變了喲！");
+}
 
 
 //JS，視窗寬度(包含scrollbar)
