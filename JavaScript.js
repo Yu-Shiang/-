@@ -54,12 +54,6 @@ ev.clientY;
 ev.offsetX;
 ev.offsetY;
 
-//尋找字串裡有沒有"?"這個字串，回傳首次出現的位置，假如沒找到會是-1
-//所以可以用這個工具來辨識字串內是否有出現關鍵字
-String.indexOf("?");
-if(String.indexOf("?") === -1){
-  //當字串裡找不到"?"時
-}
 
 
 //以下三種，結尾不用加 ;
@@ -822,6 +816,19 @@ var hash = location.hash.substr(1); //抓到aaa
 //用this.hash 可抓到href的hash #aaa
 <a href="http://www.codexworld.com/index.php#VideoTutorial" onclick="alert(this.hash)">Get Hash</a>
 
+//抓取網址參數
+var url = window.location.toString();
+if (url.indexOf("?") != -1) { 
+    var target_sn = url.split("?")[1];//將網址拆成陣列，[?前面,?後面]，可以再繼續用split("&")拆出多個參數、再用split("=")拆出屬性及值
+}
+
+//尋找字串裡有沒有"?"這個字串，回傳首次出現的位置，假如沒找到會是-1
+//所以可以用這個工具來辨識字串內是否有出現關鍵字
+String.indexOf("?");
+if(String.indexOf("?") === -1){
+  //當字串裡找不到"?"時
+}
+
 
 //javascript 擷取字串中的其中一段(抓出固定字數)
 String.substr(從0開始，第幾個字符開始抓,共要抓出幾個字符);
@@ -877,7 +884,7 @@ window.onscroll = function(){
 }
 //JS.控制捲動，例如捲動到x300 y500
 window.scrollTo(300, 500);
-//
+//下面這寫法也可以，但Edge不吃
 window.scrollTo({ 
   left: 300,
   top: 500, 
@@ -965,7 +972,7 @@ $(".sample").mouseenter(function(){
 //jQuery，滑鼠離開
 $(".sample").mouseleave(function(){
 })
-//jQuery，拆字串，結果會是陣列
+//js，拆字串，結果會是陣列
 "1g2g3".split("g"); //結果是[1,2,3]
 
 //以逗號來作為分割的字元 =  ["1", "2", "3"] 陣列
