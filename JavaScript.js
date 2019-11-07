@@ -3,7 +3,18 @@
 
 
 
+/*
+安裝node.js  去node.js官網下載安裝檔
+查看node版本(看是否安裝成功)  node -v
 
+安裝VueCli  npm install -g @vue/cli
+查看版本  vue --version
+看全部指令  vue
+(win電腦有可能會遇到預設不允許執行，請參考https://officeguide.cc/powershell-set-execution-policy-remote-signed/))
+建立專案 vue create 專案名稱
+
+
+*/
 
 
 
