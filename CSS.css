@@ -10,6 +10,13 @@
 }
 
 
+
+/*SVG的filter效果*/
+/* 可參考 https://alexisgaillard.work/en/ 的圖片切換效果 */
+/*scale="50"*/
+
+
+
 /*禁止選取文字*/
 div {
 -webkit-user-select: none; /* Safari 3.1+ */
