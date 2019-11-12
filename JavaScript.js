@@ -241,7 +241,11 @@ $(function(){
   // Document is ready
 });
 
-
+//箭頭函式
+//如有參數可省略()，如沒有參數需保留()
+//只有一行的時候可省略{}，並省略return
+let aaa = function(someone){ return saomeone + '吃飯了' };
+let aaa = saomeone => saomeone + '吃飯了';
 
 
 
