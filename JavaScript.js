@@ -378,6 +378,34 @@ for(index in arr1){
   arr2[index]=arr1[index];
 }
 
+//過濾並回傳新陣列。filter() 會回傳一個陣列，其條件是 return 後方為 true 的物件，很適合用在搜尋符合條件的資料。
+var people = [
+  {
+    name: 'Casper',
+    like: '鍋燒意麵',
+    age: 18
+  },
+  {
+    name: 'Wang',
+    like: '炒麵',
+    age: 24
+  },
+  {
+    name: 'Bobo',
+    like: '蘿蔔泥',
+    age: 1
+  }
+];
+var filterAgeThan5 = people.filter(function(item, index, array){
+  return item.age > 5; // 取得大於五歲的
+});
+
+
+
+
+
+
+
 
 
 
