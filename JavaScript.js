@@ -12,10 +12,14 @@
 看全部指令  vue
 (win電腦有可能會遇到預設不允許執行，請參考https://officeguide.cc/powershell-set-execution-policy-remote-signed/))
 建立專案 vue create 專案名稱
-
-
 */
 
+/*
+下載gitHub專案回來的方式
+git clone 專案git
+npm install
+
+*/
 
 
 //JS
@@ -289,13 +293,14 @@ console.log(x); //x是3
 
 
 /*Date時間*/
-var 現在時間 = new Date(); //創建現在時間
+var nowTime = new Date(); //創建現在時間
 var 指定日期 = new Date(year, month, day, hours, minutes, seconds, milliseconds); //參數依序填寫，最終沒寫的則是預設
 var 用字串指定日期 = new Date("2019-01-01");
 var 轉成JSON格式 = 現在時間.toJSON().slice(0,10).replace(/-/g,'/'); //並取前面年月日的部分並轉成/分隔
 
 nowTime.getTime();  //1970至今毫秒 (同下面)
 nowTime = Date.now(); //1970至今毫秒 (同上面)
+//以下這些 nowTime必須是日期格式(不能轉換成毫秒)
 nowTime.getSeconds();  //秒
 nowTime.getMinutes();  //分
 nowTime.getHours();  //小時
@@ -630,14 +635,14 @@ function init(){
 function countdown(){
   timeer.innerHTML=timer.innerHTML-1;
   if(timer.innerHTML>0){
-    windows.setTimeout(countdown, 1000);
+    window.setTimeout(countdown, 1000);
   }else{
     console.log("時間到");
   }
   
 }
 //另一個寫法，每秒鐘執行一次countdoen();
-windwos.setInterval(countdown, 1000);
+window.setInterval(countdown, 1000);
 
 
 
