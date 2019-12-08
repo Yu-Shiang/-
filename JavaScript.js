@@ -358,25 +358,60 @@ var n = arr.join(""); //n為字串 "jackjohnmaysuAda"
 
 //以下用這陣列示範
 var arr = [1, 2, 3, 4, 5, 6];
-//設定了length數量，多出的項目會被清空，第4個及以後就被刪除了
-arr.length=3; //[1,2,3]
-//shift 刪除陣列第一個元素，並回傳刪除的元素值  x=1
-var x=arr.shift();
-//unshift 新增第一個元素到陣列內，並回傳陣列的新長度  x=7
-var x=arr.unshift("0");
-//pop 刪除陣列最後一個元素，並回傳刪除的元素值   x=6
-var x=arr.pop();
-//push 在陣列尾巴新增一個或多個元素，並回傳新的陣列長度 x=8
-var x=arr.push(7,8);
-//清除該陣列元素（變空值）
-delete arr[1];  //結果是 [1,  ,3, 4, 5, 6]
+arr.length=3; //[1,2,3] //設定了length數量，多出的項目會被清空，第4個及以後就被刪除了
+var x=arr.shift(); //shift 刪除陣列第一個元素，並回傳刪除的元素值  x=1
+var x=arr.unshift("0"); //unshift 新增第一個元素到陣列內，並回傳陣列的新長度  x=7
+var x=arr.pop(); //pop 刪除陣列最後一個元素，並回傳刪除的元素值   x=6
+var x=arr.push(7,8); //push 在陣列尾巴新增一個或多個元素，並回傳新的陣列長度 x=8
+delete arr[1];  //清除該陣列元素（變空值） 結果是 [1,  ,3, 4, 5, 6]
+
 //splice 增加或刪除元素， 會返回刪除的元素
 //以下的意思是(從第0個開始,刪除2項(1,2),塞入新值,塞入新值,可多個)
 var temp = arr.splice(0,2,"new 1","new2");  //arr結果是 ["new 1", 3, 4, 5, 6]，而temp會收到刪除的值"1,2"
 
+//合併array1.2.3多個陣列。不會改變現有array1陣列，會回傳一個新陣列。
+var new_array = array1.concat(array2, array3);
+
 //陣列排序，由小到大
 var arr = [5, 9, 1, 3, 2, 6];
 arr.sort();   //結果為[1, 2, 3, 5, 6, 9]
+
+//冒泡排序
+var arr = [12,23,1,13,4,21,18,17,10];
+var i = j = temp = 0;
+for(i=0; i<arr.length-1; i++){		// 控制多少趟
+  // i: 走了多少趟，即有多少个排好序
+  for(j=0; j<arr.length-1-i; j++){		// 已经排好序的，不需要再进行比较
+    if(arr[j] > arr[j+1]){	// 两两交换
+      temp = arr[j];
+      arr[j] = arr[j+1];
+      arr[j+1] = temp;
+    }
+  }
+}
+
+//直接插入排序
+var arr = [12,23,1,13,4,21,18,17,10];
+var i = j = temp = 0;
+// 将第一个元素当做是已经排序好的		
+for(i=1; i<arr.length; i++){		
+  // 待排序
+  temp = arr[i];
+  
+  // 将待排序 与 已经排序好的  进行比较(从后往前)
+  // i: 表示待排序
+  // i-1: 表示已经排序好的
+  for(j=i-1; j>=0; j--){
+    if(temp > arr[j]){	// 待排序 比较大 (无需往前比较)
+      break;
+    } else {				// 需要往后挪
+      arr[j+1] = arr[j];
+    }
+  }
+  arr[j+1] = temp;
+}
+
+
 //以下不是複製，這樣的賦值動作，arry1、arry2指向的會是"同一組"陣列
 var arr1=[1,2,3,4,5];
 var arr2 = arr1;  //有點類似捷徑的概念 arr2是通往該陣列的捷徑
@@ -455,6 +490,8 @@ var player2=new Player("Sam",80);
 player2.rest();
 
 
+Object.keys(list); //取得list這個物件每一個屬性名稱，並組成陣列
+Object.values(list); //取得list這個物件每一個屬性的值，並組成陣列
 
 
 
