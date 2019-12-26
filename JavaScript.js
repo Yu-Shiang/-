@@ -183,6 +183,9 @@ return 判斷式?"true時":"false時";
 //知道迴圈次數時可用for
 for(var i=1;i<=100;i++){
 }
+for(const index in 陣列名稱){
+  //會跑一輪陣列，可使用 陣列名稱[index] 就可以抓到全部陣列的值
+}
 
 //不知道迴圈次數時可用while，直到false
 while(/*判斷*/){
@@ -923,8 +926,8 @@ if(String.indexOf("?") === -1){
 
 
 //javascript 擷取字串中的其中一段(抓出固定字數)
-String.substr(從0開始，第幾個字符開始抓,共要抓出幾個字符);
-String.substring(從0開始，第幾個字符開始抓,抓到第幾個字符前);
+String.substr(從0開始算起第幾個字符開始抓,共要抓出幾個字符);
+String.substring(從0開始算起第幾個字符開始抓,抓到第幾個字符前);
 
 /*JS，取整數、四捨五入
 強制進位 : Math.ceil(a);
