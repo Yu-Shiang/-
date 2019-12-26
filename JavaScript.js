@@ -524,7 +524,14 @@ var jsonStr=JSON.stringify(point);
 var plainObj=JSON.parse(jsonStr);
 
 
-
+// 迴圈撈取物件的key & value，可用下面兩種寫法
+const test = {a: 1, b: 2, c: 3};
+for (const [key, value] of Object.entries(test)) {
+  console.log(key, value);
+}
+for (var prop in test) {
+  console.log(prop, test[prop]);
+}
 
 
 
